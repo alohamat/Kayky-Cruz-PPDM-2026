@@ -1,10 +1,16 @@
 <script setup lang="ts">
 import HelloWorld from "./components/HelloWorld.vue";
 import TheWelcome from "./components/TheWelcome.vue";
+import { ref } from "vue";
+const headers = ref([1])
+
+function adicionar() {
+  headers.value.push(1);
+}
 </script>
 
 <template>
-  <header>
+  <header v-for="value in headers">
     <img
       alt="Vue logo"
       class="logo"
@@ -20,6 +26,7 @@ import TheWelcome from "./components/TheWelcome.vue";
 
   <main>
     <TheWelcome />
+    <button @click="adicionar">Criar</button>
   </main>
 </template>
 
