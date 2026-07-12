@@ -2,15 +2,20 @@
 import HelloWorld from "./components/HelloWorld.vue";
 import TheWelcome from "./components/TheWelcome.vue";
 import { ref } from "vue";
-const headers = ref([1])
+const id = ref(2);
+const textoParaAdicionar = ref("");
+const headers = ref([{id: 1, texto: "conseguiu!"}])
 
 function adicionar() {
-  headers.value.push(1);
+  if (!textoParaAdicionar.value) return;
+  headers.value.push({id: id.value, texto: textoParaAdicionar.value});
+  id.value++;
+  textoParaAdicionar.value = "";
 }
 </script>
 
 <template>
-  <header v-for="value in headers">
+  <header>
     <img
       alt="Vue logo"
       class="logo"
@@ -20,12 +25,13 @@ function adicionar() {
     />
 
     <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+      <HelloWorld v-for="mensagem in headers" :msg="mensagem.texto" :key="mensagem.id"/>
     </div>
   </header>
 
   <main>
     <TheWelcome />
+    <input v-model="textoParaAdicionar">
     <button @click="adicionar">Criar</button>
   </main>
 </template>
